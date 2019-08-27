@@ -40,7 +40,8 @@ local blacklistedCars = {
     [`POLICEB`] = true,
     [`POLICET`] = true,
     [`SHERIFF`] = true,
-    [`SHERIFF2`] = true
+    [`SHERIFF2`] = true,
+    [`FIRETRUK`] = true
 }
 
 local blacklistedPeds = {
