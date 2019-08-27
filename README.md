@@ -1,0 +1,4 @@
+# Mythic Spawn Protect
+This is the resource I have that deals with deleteing any vehicle or peds that I am not wanting to be spawned. Due to the pure nature of what it's doing the performance isn't amazing but far from the worst that exists (In highly populated areas, highest I've seen it hit is 0.10ms execution time)
+
+> Note: In order to try to reduce the performance hit as much as possible I am delaying iterations ~2 seconds (2000 frames) for vehicles, ~1 second (1000 frames) for peds, and ~0.05 seconds (50 frames) for deleting drops. Can tweak these as needed but lowering these values *will* result in worst performance.
