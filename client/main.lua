@@ -1,57 +1,14 @@
 Citizen.CreateThread(function()
-    local SCENARIO_TYPES = {
-        "WORLD_VEHICLE_MILITARY_PLANES_SMALL",
-        "WORLD_VEHICLE_MILITARY_PLANES_BIG",
-    }
-    local SCENARIO_GROUPS = {
-        2017590552,
-        2141866469,
-        1409640232,
-        `ng_planes`,
-    }
-
     while true do
-        for _, sctyp in next, SCENARIO_TYPES do
+        for _, sctyp in next, Config.BlacklistedScenarios['TYPES'] do
             SetScenarioTypeEnabled(sctyp, false)
         end
-        for _, scgrp in next, SCENARIO_GROUPS do
+        for _, scgrp in next, Config.BlacklistedScenarios['GROUPS'] do
             SetScenarioGroupEnabled(scgrp, false)
         end
         Wait(10000)
     end
 end)
-
-local blacklistedCars = {
-    [`SHAMAL`] = true,
-    [`LUXOR`] = true,
-    [`LUXOR2`] = true,
-    [`JET`] = true,
-    [`LAZER`] = true,
-    [`BUZZARD`] = true,
-    [`BUZZARD2`] = true,
-    [`ANNIHILATOR`] = true,
-    [`SAVAGE`] = true,
-    [`TITAN`] = true,
-    [`RHINO`] = true,
-    [`POLICE`] = true,
-    [`POLICE2`] = true,
-    [`POLICE3`] = true,
-    [`POLICE4`] = true,
-    [`POLICEB`] = true,
-    [`POLICET`] = true,
-    [`SHERIFF`] = true,
-    [`SHERIFF2`] = true,
-    [`FIRETRUK`] = true
-}
-
-local blacklistedPeds = {
-    [`s_m_y_ranger_01`] = true,
-    [`s_m_y_sheriff_01`] = true,
-    [`s_m_y_cop_01`] = true,
-    [`s_f_y_sheriff_01`] = true,
-    [`s_f_y_cop_01`] = true,
-    [`s_m_y_hwaycop_01`] = true,
-}
 
 local entityEnumerator = {
 	__gc = function(enum)
@@ -107,18 +64,13 @@ end
 Citizen.CreateThread(function()
 	while true do
 		for veh in EnumerateVehicles() do
-			if blacklistedCars[GetEntityModel(veh)] then
+			if Config.BlacklistedVehs[GetEntityModel(veh)] then
 				DeleteEntity(veh)
 			end
 		end
-        Citizen.Wait(2000)
-	end
-end)
-
-Citizen.CreateThread(function()
-	while true do
+        Citizen.Wait(1000)
 		for ped in EnumeratePeds() do
-			if blacklistedPeds[GetEntityModel(ped)] then
+			if Config.BlacklistedPeds[GetEntityModel(ped)] then
 				DeleteEntity(ped)
 			end
 		end
@@ -126,9 +78,25 @@ Citizen.CreateThread(function()
 	end
 end)
 
-Citizen.CreateThread(function()
-    while true do    
-        RemoveWeaponDrops()
-        Citizen.Wait(50)
-    end
-end)
+if Config.DisablemergencyDispatch then
+    Citizen.CreateThread(function()
+        while true do
+            for i = 1, 12 do
+                EnableDispatchService(i, false)
+            end
+            SetPlayerWantedLevel(PlayerId(), 0, false)
+            SetPlayerWantedLevelNow(PlayerId(), false)
+            SetPlayerWantedLevelNoDrop(PlayerId(), 0, false)
+            Citizen.Wait(0)
+        end
+    end)
+end
+
+if Config.DisableWeaponDrops then
+    Citizen.CreateThread(function()
+        while true do    
+            RemoveWeaponDrops()
+            Citizen.Wait(50)
+        end
+    end)
+end
