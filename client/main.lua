@@ -78,20 +78,6 @@ Citizen.CreateThread(function()
 	end
 end)
 
-if Config.DisablemergencyDispatch then
-    Citizen.CreateThread(function()
-        while true do
-            for i = 1, 12 do
-                EnableDispatchService(i, false)
-            end
-            SetPlayerWantedLevel(PlayerId(), 0, false)
-            SetPlayerWantedLevelNow(PlayerId(), false)
-            SetPlayerWantedLevelNoDrop(PlayerId(), 0, false)
-            Citizen.Wait(0)
-        end
-    end)
-end
-
 if Config.DisableWeaponDrops then
     Citizen.CreateThread(function()
         while true do    
