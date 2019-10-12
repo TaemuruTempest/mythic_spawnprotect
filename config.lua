@@ -1,7 +1,5 @@
 Config = {}
 
-Config.DisableWeaponDrops = true
-
 Config.BlacklistedScenarios = {
     ['TYPES'] = {
         "WORLD_VEHICLE_MILITARY_PLANES_SMALL",
