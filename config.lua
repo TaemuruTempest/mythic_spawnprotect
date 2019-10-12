@@ -1,6 +1,5 @@
 Config = {}
 
-Config.DisablemergencyDispatch = true
 Config.DisableWeaponDrops = true
 
 Config.BlacklistedScenarios = {
