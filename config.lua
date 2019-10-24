@@ -1,5 +1,10 @@
 Config = {}
 
+-- This will enable a thread that runs every 25 frames and checks for any weapon drops
+-- Around the player & will remove them. THIS WILL DECREASE PERFROMANCE TO SOME DEGREE.
+Config.RemoveWeaponDrops = false
+Config.RemoveWeaponDropsTimer = 25 -- How long to wait between scans. Higher = less often & more performant
+
 Config.BlacklistedScenarios = {
     ['TYPES'] = {
         "WORLD_VEHICLE_MILITARY_PLANES_SMALL",
